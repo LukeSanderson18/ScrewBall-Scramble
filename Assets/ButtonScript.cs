@@ -62,7 +62,6 @@ public class ButtonScript : MonoBehaviour {
     {
         if (Vector3.Distance(craneMagnet.position,metalBall.transform.position) < magnetDistance)       //if close enough, do magnetism.
         {
-            print("do it");
             metalBall.AddExplosionForce(magnetForce * -1, craneMagnet.position, magnetDistance);
             //(Vector3.Lerp(metalBall.transform.position, craneMagnet.position, Time.deltaTime));
             //metalBall.AddForce((craneMagnet.position - metalBall.transform.position) * magnetForce);
@@ -70,7 +69,7 @@ public class ButtonScript : MonoBehaviour {
             //magforce =  1 divided by the distance between the two squared.
         }
 
-        crane.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * 2);
+        crane.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * 600);
 
     }
 }
