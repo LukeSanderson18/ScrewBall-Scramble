@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ButtonScript : MonoBehaviour {
 
-    public enum ButtonType { Bridge , Crane };
+    public enum ButtonType { Bridge , Crane , Bars};
 
     public ButtonType myButtonType;
 
@@ -22,6 +22,10 @@ public class ButtonScript : MonoBehaviour {
     public float magnetDistance = 2f;
 
     //
+
+    public float barSpeed = 5f;
+
+    public Transform[] bars;
 	
 	void Update () {
 
@@ -32,6 +36,9 @@ public class ButtonScript : MonoBehaviour {
                 break;
             case ButtonType.Crane:
                 Crane();
+                break;
+            case ButtonType.Bars:
+                Bars();
                 break;
             default:
                 print("forgot to assign button type to " + gameObject.name);
@@ -71,5 +78,24 @@ public class ButtonScript : MonoBehaviour {
 
         crane.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * 600);
 
+    }
+
+    void Bars()
+    {
+        foreach (Transform t in bars)
+        {
+            if (Input.GetButton("Jump"))
+            {
+                t.rotation = Quaternion.Lerp(t.rotation, Quaternion.Euler(new Vector3(0, 200, 0)), Time.deltaTime * barSpeed);
+
+
+            }
+            else
+            {
+                t.rotation = Quaternion.Lerp(t.rotation, Quaternion.Euler(new Vector3(0, 180, 0)), Time.deltaTime * barSpeed);
+            }
+
+
+        }
     }
 }

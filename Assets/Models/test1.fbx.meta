@@ -19,6 +19,7 @@ ModelImporter:
     100022: Cylinder.007
     100024: Cylinder.008
     100026: //RootNode
+    100028: Cylinder.009
     400000: Cube
     400002: Cube.001
     400004: Cube.002
@@ -33,6 +34,7 @@ ModelImporter:
     400022: Cylinder.007
     400024: Cylinder.008
     400026: //RootNode
+    400028: Cylinder.009
     2300000: Cube
     2300002: Cube.001
     2300004: Cube.002
@@ -46,6 +48,7 @@ ModelImporter:
     2300020: Cylinder.006
     2300022: Cylinder.007
     2300024: Cylinder.008
+    2300026: Cylinder.009
     3300000: Cube
     3300002: Cube.001
     3300004: Cube.002
@@ -59,6 +62,7 @@ ModelImporter:
     3300020: Cylinder.006
     3300022: Cylinder.007
     3300024: Cylinder.008
+    3300026: Cylinder.009
     4300000: Cylinder.008
     4300002: Cube.003
     4300004: Cube.002
@@ -72,6 +76,7 @@ ModelImporter:
     4300020: Cylinder.005
     4300022: Cylinder.006
     4300024: Cylinder.007
+    4300026: Cylinder.009
   materials:
     importMaterials: 1
     materialName: 0
