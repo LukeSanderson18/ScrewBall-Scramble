@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonScript : MonoBehaviour
 {
 
-    public enum ButtonType { Bridge, Crane, Bars };
+    public enum ButtonType { Bridge, Crane, Bars , Maze };
 
     public ButtonType myButtonType;
 
