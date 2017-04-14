@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonScript : MonoBehaviour {
+public class ButtonScript : MonoBehaviour
+{
 
-    public enum ButtonType { Bridge , Crane , Bars};
+    public enum ButtonType { Bridge, Crane, Bars };
 
     public ButtonType myButtonType;
 
@@ -20,14 +21,16 @@ public class ButtonScript : MonoBehaviour {
     public Rigidbody metalBall;
     public float magnetForce = 100f;
     public float magnetDistance = 2f;
+    public float craneSpeed = 1000f;
 
     //
 
-    public float barSpeed = 5f;
-
     public Transform[] bars;
-	
-	void Update () {
+    public float barSpeed = 5f;
+    public float barDistnace = 5f;
+
+    void Update()
+    {
 
         switch (myButtonType)
         {
@@ -51,7 +54,7 @@ public class ButtonScript : MonoBehaviour {
     {
         foreach (Rigidbody rb in bridges)
         {
-           // bool jump = Input.GetButton("Jump");
+            // bool jump = Input.GetButton("Jump");
 
             if (Input.GetButton("Jump"))
             {
@@ -62,12 +65,12 @@ public class ButtonScript : MonoBehaviour {
                 rb.AddTorque(-Vector3.right * bridgeForce);
             }
         }
-        
+
     }
 
     void Crane()
     {
-        if (Vector3.Distance(craneMagnet.position,metalBall.transform.position) < magnetDistance)       //if close enough, do magnetism.
+        if (Vector3.Distance(craneMagnet.position, metalBall.transform.position) < magnetDistance)       //if close enough, do magnetism.
         {
             metalBall.AddExplosionForce(magnetForce * -1, craneMagnet.position, magnetDistance);
             //(Vector3.Lerp(metalBall.transform.position, craneMagnet.position, Time.deltaTime));
@@ -76,26 +79,22 @@ public class ButtonScript : MonoBehaviour {
             //magforce =  1 divided by the distance between the two squared.
         }
 
-        crane.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * 600);
+        crane.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * craneSpeed);
 
     }
 
     void Bars()
     {
-        foreach (Transform t in bars)
+
+        if (Input.GetButton("Jump"))
         {
-            if (Input.GetButton("Jump"))
-            {
-                t.rotation = Quaternion.Lerp(t.rotation, Quaternion.Euler(new Vector3(0, 200, 0)), Time.deltaTime * barSpeed);
-
-
-            }
-            else
-            {
-                t.rotation = Quaternion.Lerp(t.rotation, Quaternion.Euler(new Vector3(0, 180, 0)), Time.deltaTime * barSpeed);
-            }
-
-
+            bars[0].rotation = Quaternion.Lerp(bars[0].rotation, Quaternion.Euler(new Vector3(0, 180 + barDistnace, 0)), Time.deltaTime * barSpeed);
+            bars[1].rotation = Quaternion.Lerp(bars[1].rotation, Quaternion.Euler(new Vector3(0, 180 - barDistnace, 0)), Time.deltaTime * barSpeed);
         }
+        else for (int i = 0; i < bars.Length; i++)
+        {
+            bars[i].rotation = Quaternion.Lerp(bars[i].rotation, Quaternion.Euler(new Vector3(0, 180, 0)), Time.deltaTime * barSpeed);
+        }
+
     }
 }
