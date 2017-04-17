@@ -35,23 +35,10 @@ public class ButtonScript : MonoBehaviour
 
     // POPPER
 
-    public Transform[] poppers;
-    public float[] popperY;
+    public Rigidbody[] poppers;
     public float popperSpeed;
     public float popperLength = 0.5f;
 
-    void Start()
-    {
-        //popper y positions - saving for later.
-        if (myButtonType == ButtonType.Popper)
-        {
-            //popperY.Length = poppers.Length;
-            for (int i = 0; i < poppers.Length; i++)
-            {
-                popperY[i] = poppers[i].transform.position.y;
-            }
-        }
-    }
     void Update()
     {
 
@@ -162,12 +149,12 @@ public class ButtonScript : MonoBehaviour
         {
             if (Input.GetButtonDown("Jump") && poppers[i].GetComponent<Rigidbody>().velocity.y < 0.1f && poppers[i].GetComponent<Rigidbody>().velocity.y > -0.1f)
             {
-                poppers[i].GetComponent<Rigidbody>().AddForce(Vector3.up * popperSpeed);
+                poppers[i].AddForce(Vector3.up * popperSpeed);
                 //poppers[i].transform.position = Vector3.Lerp(poppers[i].transform.position, new Vector3(poppers[i].transform.position.x, popperY[i] + popperLength, poppers[i].transform.position.z), Time.deltaTime * popperSpeed);
             }
             else
             {
-                poppers[i].GetComponent<Rigidbody>().AddForce(-Vector3.up * popperSpeed * 0.4f);
+                poppers[i].AddForce(-Vector3.up * popperSpeed * 0.2f);    //added gravity...
             }
            // else
             //{
