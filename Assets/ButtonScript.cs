@@ -160,14 +160,19 @@ public class ButtonScript : MonoBehaviour
     {
         for (int i = 0; i < poppers.Length; i++)
         {
-            if (Input.GetButton("Jump"))
+            if (Input.GetButtonDown("Jump") && poppers[i].GetComponent<Rigidbody>().velocity.y < 0.1f && poppers[i].GetComponent<Rigidbody>().velocity.y > -0.1f)
             {
-                poppers[i].transform.position = Vector3.Lerp(poppers[i].transform.position, new Vector3(poppers[i].transform.position.x, popperY[i] + popperLength, poppers[i].transform.position.z), Time.deltaTime * popperSpeed);
+                poppers[i].GetComponent<Rigidbody>().AddForce(Vector3.up * popperSpeed);
+                //poppers[i].transform.position = Vector3.Lerp(poppers[i].transform.position, new Vector3(poppers[i].transform.position.x, popperY[i] + popperLength, poppers[i].transform.position.z), Time.deltaTime * popperSpeed);
             }
             else
             {
-                poppers[i].transform.position = Vector3.Lerp(poppers[i].transform.position, new Vector3(poppers[i].transform.position.x, popperY[i], poppers[i].transform.position.z), Time.deltaTime * popperSpeed);
+                poppers[i].GetComponent<Rigidbody>().AddForce(-Vector3.up * popperSpeed * 0.4f);
             }
+           // else
+            //{
+                //poppers[i].transform.position = Vector3.Lerp(poppers[i].transform.position, new Vector3(poppers[i].transform.position.x, popperY[i], poppers[i].transform.position.z), Time.deltaTime * popperSpeed);
+            //}
 
         }
     }
