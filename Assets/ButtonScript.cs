@@ -18,7 +18,7 @@ public class ButtonScript : MonoBehaviour
 
     public Transform craneMagnet;
     public Rigidbody crane;
-    public Rigidbody crane2;
+   // public Rigidbody crane2;
     public Rigidbody metalBall;
     public float magnetForce = 100f;
     public float magnetDistance = 2f;
@@ -97,7 +97,7 @@ public class ButtonScript : MonoBehaviour
         }
 
         crane.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * craneSpeed);
-        crane2.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * craneSpeed);
+       // crane2.AddTorque(Vector3.up * Input.GetAxis("Horizontal") * craneSpeed);
 
 
     }
