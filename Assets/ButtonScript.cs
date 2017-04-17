@@ -29,6 +29,10 @@ public class ButtonScript : MonoBehaviour
     public float barSpeed = 5f;
     public float barDistnace = 5f;
 
+    //
+
+    public Transform[] mazes;
+
     void Update()
     {
 
@@ -42,6 +46,9 @@ public class ButtonScript : MonoBehaviour
                 break;
             case ButtonType.Bars:
                 Bars();
+                break;
+            case ButtonType.Maze:
+                Maze();
                 break;
             default:
                 print("forgot to assign button type to " + gameObject.name);
@@ -94,6 +101,35 @@ public class ButtonScript : MonoBehaviour
         else for (int i = 0; i < bars.Length; i++)
         {
             bars[i].rotation = Quaternion.Lerp(bars[i].rotation, Quaternion.Euler(new Vector3(0, 180, 0)), Time.deltaTime * barSpeed);
+        }
+
+    }
+
+    void Maze()
+    {
+        float tiltAngle = 12f;
+        foreach (Transform maze in mazes)
+        {
+            float tiltAroundZ = -Input.GetAxis("Horizontal") * tiltAngle;
+            float tiltAroundX = Input.GetAxis("Vertical") * tiltAngle;
+            Quaternion target = Quaternion.Euler(tiltAroundX, 0, tiltAroundZ);
+
+            maze.transform.rotation = Quaternion.Slerp(maze.transform.rotation, target, Time.deltaTime * 8);
+
+            //old code that didnt like playing nice.
+
+            // maze.transform.rotation = Quaternion.Lerp(maze.transform.rotation, Quaternion.EulerAngles(new Vector3(-90,10* hor,0)), Time.deltaTime * 8);
+            //maze.transform.rotation = Quaternion.Lerp(maze.transform.localRotation,Quaternion.Euler(new Vector3((-90 + ver * 10) + (hor*10),0 ,0)),Time.deltaTime * barSpeed);
+            /*
+            curRot.x += Input.GetAxis("Vertical") * Time.deltaTime * tiltSpeed;
+            curRot.y += Input.GetAxis("Horizontal") * Time.deltaTime * tiltSpeed;
+            // Restrict rotation along x and z axes to the limit angles:
+            curRot.x = Mathf.Clamp(curRot.x, minX, maxX);
+            curRot.y = Mathf.Clamp(curRot.z, minZ, maxZ);
+
+            // Set the object rotation
+            */
+            // maze.transform.eulerAngles = curRot;
         }
 
     }
