@@ -5,16 +5,16 @@ using UnityEngine;
 public class ButtonScript : MonoBehaviour
 {
 
-    public enum ButtonType { Bridge, Crane, Bars , Maze };
+    public enum ButtonType { Bridge, Crane, Bars, Maze, Popper };
 
     public ButtonType myButtonType;
 
-    //
+    //  BRIDGE
 
     public Rigidbody[] bridges;
     public float bridgeForce = 200f;
 
-    //
+    // CRANE
 
     public Transform craneMagnet;
     public Rigidbody crane;
@@ -23,16 +23,35 @@ public class ButtonScript : MonoBehaviour
     public float magnetDistance = 2f;
     public float craneSpeed = 1000f;
 
-    //
+    // BARS
 
     public Transform[] bars;
     public float barSpeed = 5f;
     public float barDistnace = 5f;
 
-    //
+    // MAZE
 
     public Transform[] mazes;
 
+    // POPPER
+
+    public Transform[] poppers;
+    public float[] popperY;
+    public float popperSpeed;
+    public float popperLength = 0.5f;
+
+    void Start()
+    {
+        //popper y positions - saving for later.
+        if (myButtonType == ButtonType.Popper)
+        {
+            //popperY.Length = poppers.Length;
+            for (int i = 0; i < poppers.Length; i++)
+            {
+                popperY[i] = poppers[i].transform.position.y;
+            }
+        }
+    }
     void Update()
     {
 
@@ -49,6 +68,9 @@ public class ButtonScript : MonoBehaviour
                 break;
             case ButtonType.Maze:
                 Maze();
+                break;
+            case ButtonType.Popper:
+                Popper();
                 break;
             default:
                 print("forgot to assign button type to " + gameObject.name);
@@ -99,9 +121,9 @@ public class ButtonScript : MonoBehaviour
             bars[1].rotation = Quaternion.Lerp(bars[1].rotation, Quaternion.Euler(new Vector3(0, 180 - barDistnace, 0)), Time.deltaTime * barSpeed);
         }
         else for (int i = 0; i < bars.Length; i++)
-        {
-            bars[i].rotation = Quaternion.Lerp(bars[i].rotation, Quaternion.Euler(new Vector3(0, 180, 0)), Time.deltaTime * barSpeed);
-        }
+            {
+                bars[i].rotation = Quaternion.Lerp(bars[i].rotation, Quaternion.Euler(new Vector3(0, 180, 0)), Time.deltaTime * barSpeed);
+            }
 
     }
 
@@ -132,5 +154,21 @@ public class ButtonScript : MonoBehaviour
             // maze.transform.eulerAngles = curRot;
         }
 
+    }
+
+    void Popper()
+    {
+        for (int i = 0; i < poppers.Length; i++)
+        {
+            if (Input.GetButton("Jump"))
+            {
+                poppers[i].transform.position = Vector3.Lerp(poppers[i].transform.position, new Vector3(poppers[i].transform.position.x, popperY[i] + popperLength, poppers[i].transform.position.z), Time.deltaTime * popperSpeed);
+            }
+            else
+            {
+                poppers[i].transform.position = Vector3.Lerp(poppers[i].transform.position, new Vector3(poppers[i].transform.position.x, popperY[i], poppers[i].transform.position.z), Time.deltaTime * popperSpeed);
+            }
+
+        }
     }
 }
