@@ -5,6 +5,7 @@ using UnityEngine;
 public class Cup : MonoBehaviour {
 
     Rigidbody rb;
+    public BoxCollider bc;
 
     private void Start()
     {
@@ -15,10 +16,16 @@ public class Cup : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Return))
         {
             Flip();
+            Invoke("Kill", 0.2f);
         }
     }
     void Flip()
     {
-        rb.AddForceAtPosition(Vector3.up * 3000, transform.GetChild(0).position);
+        rb.AddForceAtPosition(Vector3.up * 9000, transform.GetChild(0).position);
+    }
+
+    void Kill()
+    {
+        bc.enabled = false;
     }
 }
